@@ -12,7 +12,22 @@ import { defineConfig, devices } from '@playwright/test';
  * See https://playwright.dev/docs/test-configuration.
  */
 export default defineConfig({
-  testDir: './tests-shopify',
+  // path to the global setup files.
+  globalSetup: require.resolve('./global-setup.ts'),
+
+  // path to the global teardown files.
+  globalTeardown: require.resolve('./global-teardown.ts'),
+
+  // Each test is given 30 seconds.
+  timeout: 30000,
+  // Folder for test artifacts such as screenshots, videos, traces, etc.
+  outputDir: 'test-results',
+  // Glob patterns or regular expressions to ignore test files.
+  testIgnore: 'demo*',
+
+  // Glob patterns or regular expressions that match test files.
+  testMatch: '*.spec.ts',
+  testDir: './',
   /* Run tests in files in parallel */
   fullyParallel: true,
   /* Fail the build on CI if you accidentally left test.only in the source code. */
@@ -26,10 +41,47 @@ export default defineConfig({
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
     /* Base URL to use in actions like `await page.goto('/')`. */
-    // baseURL: 'http://127.0.0.1:3000',
+     baseURL: 'https://01pxnh-tj.myshopify.com/',
 
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: 'on-first-retry',
+
+    // Populates context with given storage state.
+    //storageState: 'state.json',
+
+    // Emulates `'prefers-colors-scheme'` media feature.
+    colorScheme: 'dark',
+
+    // Context geolocation.
+    geolocation: { longitude: 12.492507, latitude: 41.889938 },
+
+    // Emulates the user locale.
+    locale: 'en-GB',
+
+    // Grants specified permissions to the browser context.
+    permissions: ['geolocation'],
+
+    // Emulates the user timezone.
+    timezoneId: 'Europe/Paris',
+
+    // Viewport used for all pages in the context.
+    viewport: { width: 1280, height: 720 }
+  },
+
+  expect: {
+    // Maximum time expect() should wait for the condition to be met.
+    timeout: 5000,
+
+    toHaveScreenshot: {
+      // An acceptable amount of pixels that could be different, unset by default.
+      maxDiffPixels: 10,
+    },
+
+    toMatchSnapshot: {
+      // An acceptable ratio of pixels that are different to the
+      // total amount of pixels, between 0 and 1.
+      maxDiffPixelRatio: 0.1,
+    },
   },
 
   /* Configure projects for major browsers */
