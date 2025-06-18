@@ -25,16 +25,16 @@ export class SearchPage extends BasePage {
     super(page);
     
     // Initialize locators
-    this.searchInput = page.locator('input[type="search"], input[name="q"], .search-input');
-    this.searchButton = page.locator('button[type="submit"], .search-button, .search-submit');
-    this.searchResults = page.locator('.search-results, .search-results-grid, [data-search-results]');
-    this.searchResultItem = page.locator('.search-result-item, .product-item, [data-search-result]');
-    this.searchSuggestions = page.locator('.search-suggestions, .autocomplete, [data-search-suggestions]');
+    this.searchInput = page.locator('input[type="search"], input[name="q"], .search__input');
+    this.searchButton = page.locator('button[type="submit"], .search__button, .search-submit');
+    this.searchResults = page.locator('.template-search__results, .search-results-grid, [data-search-results]');
+    this.searchResultItem = page.locator('.grid__item, .product-item, [data-search-result]');
+    this.searchSuggestions = page.locator('#predictive-search-results, .autocomplete, [data-search-suggestions]');
     this.searchFilters = page.locator('.search-filters, .filter-sidebar, [data-search-filters]');
     this.sortDropdown = page.locator('.sort-dropdown, .sort-select, [data-sort]');
     this.viewToggle = page.locator('.view-toggle, .view-mode, [data-view-toggle]');
     this.pagination = page.locator('.pagination, .search-pagination, [data-pagination]');
-    this.noResultsMessage = page.locator('.no-results, .search-no-results, [data-no-results]');
+    this.noResultsMessage = page.locator('.template-search [role="status"], .search-no-results, [data-no-results]');
     this.searchHistory = page.locator('.search-history, .recent-searches, [data-search-history]');
     this.popularSearches = page.locator('.popular-searches, .trending-searches, [data-popular-searches]');
     this.searchCategories = page.locator('.search-categories, .category-filters, [data-search-categories]');

@@ -27,20 +27,20 @@ export class ProductPage extends BasePage {
     super(page);
     
     // Initialize locators
-    this.productTitle = page.locator('.product-title, h1, [data-product-title]');
-    this.productPrice = page.locator('.product-price, .price, [data-product-price]');
-    this.productDescription = page.locator('.product-description, .description, [data-product-description]');
+    this.productTitle = page.locator('.product__title h1');
+    this.productPrice = page.locator('.price__regular .price-item--regular');
+    this.productDescription = page.locator('.product__description');
     this.productImages = page.locator('.product-images, .product-gallery');
-    this.mainImage = page.locator('.main-image, .product-image img');
+    this.mainImage = page.locator('.product__media');
     this.thumbnailImages = page.locator('.thumbnail, .product-thumbnail');
     this.variantSelectors = page.locator('.variant-selector, .product-option');
     this.sizeSelector = page.locator('select[name*="size"], input[name*="size"]');
     this.colorSelector = page.locator('select[name*="color"], input[name*="color"]');
-    this.quantityInput = page.locator('input[name="quantity"], .quantity-input');
-    this.addToCartButton = page.locator('.add-to-cart, [data-add-to-cart]');
+    this.quantityInput = page.locator('input[name="quantity"], .quantity__input');
+    this.addToCartButton = page.locator('.product-form__submit, [name="add"]');
     this.buyNowButton = page.locator('.buy-now, [data-buy-now]');
     this.wishlistButton = page.locator('.wishlist, .favorite, [data-wishlist]');
-    this.shareButton = page.locator('.share, [data-share]');
+    this.shareButton = page.locator('.share-button__button, [data-share]');
     this.breadcrumbs = page.locator('.breadcrumbs, .breadcrumb');
     this.relatedProducts = page.locator('.related-products, .recommendations');
     this.reviews = page.locator('.reviews, .product-reviews');
@@ -209,4 +209,11 @@ export class ProductPage extends BasePage {
   public async isAddToCartEnabled(): Promise<boolean> {
     return await this.addToCartButton.isEnabled();
   }
+
+  async addProductToCart() {
+    const isEnabled = await this.isAddToCartEnabled();
+    if (isEnabled) {
+      await this.addToCart();
+      await this.waitForAddToCartSuccess();
+    }  }
 } 

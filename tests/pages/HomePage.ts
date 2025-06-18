@@ -19,14 +19,14 @@ export class HomePage extends BasePage {
     super(page);
     
     // Initialize locators
-    this.header = page.locator('header');
+    this.header = page.locator('.header__heading');
     this.navigation = page.locator('nav');
     this.searchInput = page.locator('input[type="search"], input[name="q"]');
-    this.searchButton = page.locator('button[type="submit"], .search-button');
-    this.productGrid = page.locator('.product-grid, .products-grid, [data-product-grid]');
-    this.productCards = page.locator('.product-card, .product-item, [data-product-card]');
-    this.cartIcon = page.locator('.cart-icon, .shopping-cart, [data-cart-icon]');
-    this.cartCount = page.locator('.cart-count, .cart-badge, [data-cart-count]');
+    this.searchButton = page.locator('.search__button');
+    this.productGrid = page.locator('.product-grid, .grid');
+    this.productCards = page.locator('.grid__item');
+    this.cartIcon = page.locator('.header__icon--cart, #cart-icon-bubble');
+    this.cartCount = page.locator('.cart-count-bubble');
     this.footer = page.locator('footer');
     this.newsletterSignup = page.locator('.newsletter-signup, .email-signup');
     this.socialLinks = page.locator('.social-links, .social-media');

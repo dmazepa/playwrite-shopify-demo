@@ -32,11 +32,11 @@ export class CategoryPage extends BasePage {
     super(page);
     
     // Initialize locators
-    this.categoryTitle = page.locator('.category-title, .collection-title, h1');
+    this.categoryTitle = page.locator('.collection-hero__title, .collection-title, h1');
     this.categoryDescription = page.locator('.category-description, .collection-description');
     this.categoryImage = page.locator('.category-image, .collection-image');
-    this.productGrid = page.locator('.product-grid, .products-grid, [data-product-grid]');
-    this.productCards = page.locator('.product-card, .product-item, [data-product-card]');
+    this.productGrid = page.locator('.product-grid, #product-grid, [data-product-grid]');
+    this.productCards = page.locator('.grid__item, .product-item, [data-product-card]');
     this.categoryFilters = page.locator('.category-filters, .filter-sidebar, [data-category-filters]');
     this.sortDropdown = page.locator('.sort-dropdown, .sort-select, [data-sort]');
     this.viewToggle = page.locator('.view-toggle, .view-mode, [data-view-toggle]');

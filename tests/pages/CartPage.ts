@@ -31,27 +31,27 @@ export class CartPage extends BasePage {
     super(page);
     
     // Initialize locators
-    this.cartContainer = page.locator('.cart-container, .shopping-cart, [data-cart]');
-    this.cartItems = page.locator('.cart-item, .cart-line-item, [data-cart-item]');
+    this.cartContainer = page.locator('#MainContent, .shopping-cart, [data-cart]');
+    this.cartItems = page.locator('.cart-items, .cart-line-item, [data-cart-item]');
     this.cartItem = page.locator('.cart-item, .cart-line-item');
-    this.itemTitle = page.locator('.item-title, .product-title, [data-item-title]');
-    this.itemPrice = page.locator('.item-price, .product-price, [data-item-price]');
-    this.itemQuantity = page.locator('.item-quantity, .quantity-input, [data-item-quantity]');
-    this.itemRemoveButton = page.locator('.remove-item, .delete-item, [data-remove-item]');
-    this.itemImage = page.locator('.item-image, .product-image, [data-item-image]');
+    this.itemTitle = page.locator('.cart-item__name, .product-title, [data-item-title]');
+    this.itemPrice = page.locator('.price--end, .product-price, [data-item-price]');
+    this.itemQuantity = page.locator('.quantity__input, .quantity-input, [data-item-quantity]');
+    this.itemRemoveButton = page.locator('.button--tertiary, .delete-item, [data-remove-item]');
+    this.itemImage = page.locator('.cart-item__image-container, .product-image, [data-item-image]');
     this.subtotal = page.locator('.subtotal, .cart-subtotal, [data-subtotal]');
     this.tax = page.locator('.tax, .cart-tax, [data-tax]');
     this.shipping = page.locator('.shipping, .cart-shipping, [data-shipping]');
-    this.total = page.locator('.total, .cart-total, [data-total]');
-    this.checkoutButton = page.locator('.checkout, .proceed-to-checkout, [data-checkout]');
-    this.continueShoppingButton = page.locator('.continue-shopping, .keep-shopping, [data-continue-shopping]');
-    this.emptyCartMessage = page.locator('.empty-cart, .cart-empty, [data-empty-cart]');
+    this.total = page.locator('.totals__total-value, .cart-total, [data-total]');
+    this.checkoutButton = page.locator('.cart__checkout-button, #checkout, [name=checkout]');
+    this.continueShoppingButton = page.locator('.underlined-link, .keep-shopping, [data-continue-shopping]');
+    this.emptyCartMessage = page.locator('.cart__empty-text, .cart-empty, [data-empty-cart]');
     this.couponInput = page.locator('.coupon-input, .discount-code, [data-coupon-input]');
     this.applyCouponButton = page.locator('.apply-coupon, .apply-discount, [data-apply-coupon]');
     this.couponCode = page.locator('.coupon-code, .applied-discount, [data-coupon-code]');
     this.removeCouponButton = page.locator('.remove-coupon, .remove-discount, [data-remove-coupon]');
-    this.quantityIncreaseButton = page.locator('.quantity-plus, .qty-plus, [data-increase-quantity]');
-    this.quantityDecreaseButton = page.locator('.quantity-minus, .qty-minus, [data-decrease-quantity]');
+    this.quantityIncreaseButton = page.locator('.quantity-plus, .qty-plus, [name=plus]');
+    this.quantityDecreaseButton = page.locator('.quantity-minus, .qty-minus, [name=minus]');
     this.saveForLaterButton = page.locator('.save-for-later, .wishlist, [data-save-for-later]');
     this.savedItems = page.locator('.saved-items, .wishlist-items, [data-saved-items]');
   }
@@ -90,7 +90,7 @@ export class CartPage extends BasePage {
   async getItemQuantity(index: number): Promise<number> {
     const items = await this.cartItems.all();
     if (items[index]) {
-      const quantityInput = items[index].locator('.item-quantity, .quantity-input');
+      const quantityInput = items[index].locator(this.itemQuantity);
       const value = await quantityInput.inputValue();
       return parseInt(value) || 1;
     }
@@ -100,9 +100,10 @@ export class CartPage extends BasePage {
   async setItemQuantity(index: number, quantity: number) {
     const items = await this.cartItems.all();
     if (items[index]) {
-      const quantityInput = items[index].locator('.item-quantity, .quantity-input');
+      const quantityInput = items[index].locator(this.itemQuantity);
       await this.fillInput(quantityInput, quantity.toString());
     }
+    await this.clickElement(this.total);
   }
 
   async increaseItemQuantity(index: number) {
@@ -250,7 +251,7 @@ export class CartPage extends BasePage {
   }
 
   public get quantityInputs() {
-    return this.cartItems.locator('.item-quantity, .quantity-input');
+    return this.cartItems.locator(this.itemQuantity);
   }
 
   public async isEmpty(): Promise<boolean> {
