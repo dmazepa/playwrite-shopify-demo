@@ -1,4 +1,4 @@
-import { test, expect } from '@playwright/test';
+import { test, expect } from '../../global-setup';
 import { env } from '../config/env';
 
 test.describe('place order', () => {
